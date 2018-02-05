@@ -56,14 +56,16 @@ class BaseInvitationsAdapter(object):
             msg = EmailMultiAlternatives(subject,
                                          bodies['txt'],
                                          settings.DEFAULT_FROM_EMAIL,
-                                         [email])
+                                         [email],
+                                         reply_to=settings.DEFAULT_REPLY_TO_EMAIL)
             if 'html' in bodies:
                 msg.attach_alternative(bodies['html'], 'text/html')
         else:
             msg = EmailMessage(subject,
                                bodies['html'],
                                settings.DEFAULT_FROM_EMAIL,
-                               [email])
+                               [email],
+                               reply_to=settings.DEFAULT_REPLY_TO_EMAIL)
             msg.content_subtype = 'html'  # Main content is now text/html
         return msg
 
